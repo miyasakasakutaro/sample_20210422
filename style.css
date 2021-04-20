@@ -11,14 +11,14 @@ body {
    margin-bottom: 3px;
  }
 
- #next_button{
+ #back_button{
    top: 50%;
    position: absolute;
    font-size: 2rem;
    background: rgba(0,10,0,0.5);
  }
 
- #back_button{
+ #next_button{
    top: 50%;
    right: 0;
    position: absolute;
