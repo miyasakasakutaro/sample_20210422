@@ -24,8 +24,8 @@
     </div>
     <div id="data_view">
 
-      <div id="back_button" onclick="susumu()">next</div>
-      <div id="next_button" onclick="modoru()">back</div>
+      <div id="next_button" onclick="susumu()">next</div>
+      <div id="back_button" onclick="modoru()">back</div>
 
       <!-- データの中身 -->
       <div class ="Subtitle">
@@ -70,6 +70,7 @@
       // firebaseのどの機能を使うか指定
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
+
 
       //　ここで自分のfirebasestoreを参照する
       var db = firebase.firestore();
@@ -149,3 +150,4 @@
 
   </body>
 </html>
+
