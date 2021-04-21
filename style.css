@@ -10,30 +10,80 @@ body {
    margin-top: 3px;
    margin-bottom: 3px;
  }
-
- #back_button{
+ .BACK,
+ a.BACK,
+ button.BACK {
    top: 50%;
+   left: 5%;
    position: absolute;
-   font-size: 2rem;
-   background: rgba(0,10,0,0.5);
+   font-size: 1.6rem;
+   font-weight: 700;
+   line-height: 1.5;
+   display: inline-block;
+   padding: 1rem 4rem;
+   cursor: pointer;
+   -webkit-transition: all 0.3s;
+   transition: all 0.3s;
+   text-align: center;
+   vertical-align: middle;
+   letter-spacing: 0.1em;
+   color: #212529;
+   border-radius: 0.5rem;
+ }
+ .BACK,
+ a.BACK{
+   color: #fff;
+   background-color: #0000CC;
+ }
+ .BACK:hover,
+ a.BACK:hover{
+   color: #fff;
+   background: #3399FF;
  }
 
- #next_button{
-   top: 50%;
-   right: 0;
-   position: absolute;
-   font-size: 2rem;
-   background: rgba(0,10,0,0.5);
 
- }
+.NEXT,
+a.NEXT,
+button.NEXT {
+  top: 50%;
+  right: 5%;
+  position: absolute;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+.NEXT,
+a.NEXT{
+  color: #fff;
+  background-color: #eb6100;
+}
+.NEXT:hover,
+a.NEXT:hover{
+  color: #fff;
+  background: #FF9966;
+}
+
  .Main_title{
+   text-align:center;
    margin-left: auto;
    margin-right: auto;
-   width: 50%;
-   height: 5rem;
+   width: 80%;
+   height: 8rem;
+   font-size: 2rem;
  }
 
  .contents{
+   text-align:center;
    /*ここで中央揃えにしてる*/
    margin-left: auto;
    margin-right: auto;
@@ -43,10 +93,12 @@ body {
  }
 
  .Subtitle{
+   text-align:center;
    margin-left: auto;
    margin-right: auto;
+   width: 80%;
+   height: 5rem;
    font-size: 3rem;
-
  }
 
  .image_view{
@@ -54,5 +106,5 @@ body {
    margin-right: auto;
    width: 30%;
    height: 30%;
-   background: Green; /*わかりやすくするための確認用*/
+   background: White; /*わかりやすくするための確認用*/
  }
