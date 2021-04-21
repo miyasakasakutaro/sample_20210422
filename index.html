@@ -23,9 +23,8 @@
     <h1> kinda "LABOR-SAVING DESIGNS"</h1>
     </div>
     <div id="data_view">
-
-      <div id="next_button" onclick="susumu()">next</div>
-      <div id="back_button" onclick="modoru()">back</div>
+      <div class="NEXT" onclick="susumu()">NEXT</div>
+      <div class="BACK" onclick="modoru()">BACK</div>
 
       <!-- データの中身 -->
       <div class ="Subtitle">
@@ -98,7 +97,7 @@
 
       var drawelements = function(order){
         rec = document.getElementById("Record_number");
-        rec.innerHTML = "<p>NO." + LIST[order].Record_number + "</p>"
+        rec.innerHTML = "<p>No." + LIST[order].Record_number + "</p>"
         img = document.getElementById("img");
         img.src = LIST[order].Image;
         //console.log(LIST[order].Image);
