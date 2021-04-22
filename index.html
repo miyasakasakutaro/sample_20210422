@@ -69,21 +69,19 @@
 
       
       var db = firebase.firestore();
-      var LIST = [];  //ID保管用
+      var LIST = []; 
 
-      //　ここでfirestoreにあるデータを全部所得する
       window.onload = function(){
         db.collection("users").get().then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-              //console.log(doc.id, " => ", doc.data());
+              
               var data = doc.data();
               LIST.push(data);
 
-              //　ここで要素数を取得している
+            
               const elements_number = LIST.length - 1;
               console.log(elements_number);
 
-              //dekita ato ni list tsukattemo daijoubu
               drawelements(0);
           });
       });
