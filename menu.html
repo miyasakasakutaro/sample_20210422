@@ -96,7 +96,7 @@
         //console.log(LIST[order].Image);
         // img.innerHTML = "<img src ='" + LIST[order].Image + "'>"
           console.log(LIST[order].Day);
-          const timestampToTime = (timestamp) => {
+         /* const timestampToTime = (timestamp) => {
           const date = new Date(timestamp*1000);
           const yyyy = `${date.getFullYear()}`;
           const MM = `0${date.getMonth() + 1}`.slice(-2); // getMonth()の返り値は0が基点
@@ -107,8 +107,8 @@
           return `${yyyy}/${MM}/${dd}${HH}:${mm}:${ss}`;
         }
         timestamp = LIST[order].Day.seconds;
-        console.log(timestampToTime(timestamp));
-        day = document.getElementById("Day");
+        console.log(timestampToTime(timestamp));*/
+        day = document.getElementById("Date");
         day.innerHTML = "<p>Date：" + timestampToTime(timestamp)+ "</p>"
         spo = document.getElementById("Spot");
         spo.innerHTML = "<p>Location：" + LIST[order].Spot + "</p>"
