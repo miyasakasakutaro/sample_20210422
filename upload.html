@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+    <link rel="stylesheet" href="style_upload.css">
+    <nav>　
+      <ul>　　
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="menu.html">メニュー</a></li>　　　
+      </ul>
+    </nav>
+
+  </head>
+<body>
+<div class="Main_title">
+    <h1> 新規アップロード</h1>
+</div>
+<div class="content">
+  <form action="#" method="post">
+<p> 画像<br>
+  <form autocomplete="off" id="form_img">
+  　　　　　<input type="file" id="setfile">
+  </form></p>
+<p> 製品名<br>
+<input type="text" name="name" id= "Name"></p>
+<p> 撮影日<br>
+<input type="text" name="name" id= "Date"></p>
+<p>撮影場所<br>
+<input type="text" name="mail" id="Location"></p>
+<p>説明<br>
+<input type="text" name="mail" id="Category"></p>
+<p>省力化タイプ<br>
+<input type="text" name="mail" id="Type"></p>
+<p>登録者<br>
+<input type="text" name="mail" id="Registrant"></p>
+<form id="form1" action="#">
+   <input type="button" onclick="showMessage()" value="送信">
+ </form>
+ <h1 id = "hoge"> </h1>
+ <h1 id = "huga"> </h1>
+</div>
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-storage.js"></script>
+
+
+    <script>
+
+      var firebaseConfig = {
+        apiKey: "AIzaSyD9Akq0fHCQ2c2RMWTy8jX9yekb6FqEG7c",
+        authDomain: "miyasaka001.firebaseapp.com",
+        projectId: "miyasaka001",
+        storageBucket: "miyasaka001.appspot.com",
+        messagingSenderId: "344443623638",
+        appId: "1:344443623638:web:b7e223de10b4dd9d1f1177"
+      };
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      var db = firebase.firestore();
+
+      const form = document.getElementById("form_img");
+      const setfile = document.getElementById("setfile");
+      const storage = firebase.storage();
+      const imgSample = document.getElementById("imgSample");
+
+      // グローバル変数を定義
+      var file_name;
+      var blob;
+      var url;
+      // setfileの変更で処理開始（変更があった要素がeで返される）
+      setfile.addEventListener("change", e => {
+      var file = e.target.files;
+      file_name = file[0].name;
+      blob = new Blob(file, { type: "image/jpeg" });
+      console.warn(blob);
+      });
+
+
+   const showMessage = (e => {
+
+       const hoge = document.getElementById("hoge");
+       hoge.innerHTML="NOW UPLOADING";
+
+
+     var uploadRef = storage.ref(file_name);
+     uploadRef.put(blob).then(snapshot => {
+     console.log(snapshot.state);
+     // アップロードしたファイルのurlを取得
+        uploadRef.getDownloadURL().then(url => {
+
+        }).catch(error => {
+           console.log(error);
+        });
+
+      const textbox1 = document.getElementById("Category");
+      const textbox2 = document.getElementById("Date");
+      const textbox3 = document.getElementById("Name");
+      const textbox4 = document.getElementById("Registrant");
+      const textbox5 = document.getElementById("Location");
+      const textbox6 = document.getElementById("Type");
+      const textbox7 = document.getElementById("Image")
+      db.collection('users').get().then(snap => {
+     size = snap.size // will return the collection size
+     uploadRef.getDownloadURL().then(url => {
+       console.log(url);
+    db.collection("users").add({
+       Category: textbox1.value,
+       Date: textbox2.value,
+       Name: textbox3.value,
+       Registrant: textbox4.value,
+       Spot: textbox5.value,
+       Type: textbox6.value,
+       Record_number:size+1,
+       Image:url
+     })
+   .then((docRef) => {
+       console.log("Document written with ID: ", docRef.id);
+   })
+   .catch((error) => {
+       console.error("Error adding document: ", error);
+   });
+ }).catch(error => {
+ console.log(error);
+ });
+ });
+});
+// valueリセットする
+   file_name = '';
+   blob = '';
+   const huga = document.getElementById("huga");
+   huga.innerHTML="COmplete";
+});
+
+  </script>
+
+
+
+
+  </body>
+</html>
