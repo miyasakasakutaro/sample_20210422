@@ -4,55 +4,71 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Firebase Hosting</title>
-    <link rel="stylesheet" href="style.css">
-<!--script type="text/javascript" src="javascript/sketch.js"></script-->
+    <link rel="stylesheet" href="style_home.css">
+    <header>
+      <div class="Main_title">
+          <h1> Home</h1>
+          </div>
+  </header>
+    <nav>　
+      <ul>　　
+        <li><a href="menu.html">１から順に見る</a></li>　　　
+      </ul>
+    </nav>
+</header>
 
-    <!-- update the version number as needed -->
-    <!--<script defer src="/__/firebase/8.4.1/firebase-app.js"></script>
-    <script defer src="/__/firebase/8.4.1/firebase-firestore.js"></script>
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>-->
   </head>
-  <body>
-
-<div class="Main_title">
-    <h1> "Examples of LABOR-SAVING DESIGN"</h1>
-    </div>
+<body>
     <div id="data_view">
-      <div class="NEXT" onclick="susumu()">NEXT</div>
-      <div class="BACK" onclick="modoru()">BACK</div>
+<div class="Table">
+     <template id="template">
+        <tr>
+          <td class="Record_number"></td>
+          <!--<td class="Day"></td>-->
+          <td class="Date"></td>
+          <td class="Spot"></td>
+          <td class="Name"></td>
+          <!--<td class="Category"></td>-->
+          <td class="Type"></td>
+          <td class="Registrant"></td>
+          <td class="Img">
+              <img width="30%">
+          </div>
+        </td>
+        </tr>
+      </template>
 
-    
-      <div class ="Subtitle">
-        <p id="Record_number">レコードナンバー</p>
-        </div>
-        <div class ="image_view">
-          <img src="" id="img" width="100%">
-        </div>
-      
-        <div class="contents">
-        <p id="Day">登録日</p>
-        <p id="Spot">撮影場所</p>
-        <p id="Name">製品名</p>
-        <p id="Category">カテゴリー</p>
-        <p id="Type">省力化タイプ</p>
-        <p id="Registrant">登録者</p>
-    </div>
-  </div>
+      <table id="container" border="1">
+        <tr><th>番号</th>
+          <th>撮影日</th>
+          <th>撮影場所</th>
+          <th>製品名</th>
+          <!--<th>カテゴリー</th>-->
+          <th>省力化タイプ</th>
+          <th>登録者</th>
+          <th>画像</th>
+        </tr>
+      </table>
+      <div class="uploadlink">
+      <h1>
+  　　　　　<a href="upload.html">新規アップロード</a>
+      </h1>
+
+</div>
+
 
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-storage.js"></script>
+
 
     <script>
-
 
       var firebaseConfig = {
         apiKey: "AIzaSyD9Akq0fHCQ2c2RMWTy8jX9yekb6FqEG7c",
@@ -62,97 +78,62 @@
         messagingSenderId: "344443623638",
         appId: "1:344443623638:web:b7e223de10b4dd9d1f1177"
       };
-      
+
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
 
-
-      
       var db = firebase.firestore();
-      var LIST = []; 
+
+
+      var LIST = [];
 
       window.onload = function(){
-        db.collection("users").get().then(function(querySnapshot) {
+        db.collection("users").orderBy("Record_number").get().then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-              
+
               var data = doc.data();
               LIST.push(data);
+              console.log(LIST[0]);
 
-            
+
+
+
               const elements_number = LIST.length - 1;
-              console.log(elements_number);
+              console.log(LIST.length);
 
-              drawelements(0);
           });
-      });
-
-    }
-
-
-      var drawelements = function(order){
-        rec = document.getElementById("Record_number");
-        rec.innerHTML = "<p>No." + LIST[order].Record_number + "</p>"
-        img = document.getElementById("img");
-        img.src = LIST[order].Image;
-        //console.log(LIST[order].Image);
-        // img.innerHTML = "<img src ='" + LIST[order].Image + "'>"
-          console.log(LIST[order].Day);
-          const timestampToTime = (timestamp) => {
-          const date = new Date(timestamp*1000);
-          const yyyy = `${date.getFullYear()}`;
-          const MM = `0${date.getMonth() + 1}`.slice(-2); // getMonth()の返り値は0が基点
-          const dd = `0${date.getDate()}`.slice(-2);
-          const HH = `0${date.getHours()}`.slice(-2);
-          const mm = `0${date.getMinutes()}`.slice(-2);
-          const ss = `0${date.getSeconds()}`.slice(-2);
-          return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
-        }
-        timestamp = LIST[order].Day.seconds;
-        console.log(timestampToTime(timestamp));
-        day = document.getElementById("Day");
-        day.innerHTML = "<p>Date：" + timestampToTime(timestamp)+ "</p>"
-        spo = document.getElementById("Spot");
-        spo.innerHTML = "<p>Location：" + LIST[order].Spot + "</p>"
-        nam = document.getElementById("Name");
-        nam.innerHTML = "<p>Name：" + LIST[order].Name + "</p>"
-        cat = document.getElementById("Category");
-        cat.innerHTML = "<p>Category：" + LIST[order].Category + "</p>"
-        typ = document.getElementById("Type");
-        typ.innerHTML = "<p>Type：" + LIST[order].Type + "</p>"
-        res = document.getElementById("Registrant");
-        res.innerHTML = "<p>Registrant：" + LIST[order].Registrant + "</p>"
-
-      }
-
-
-      var i = 0;
-      console.log(i);
-
-        function susumu(){
-          i = i + 1;
-          if(i > 2){
-              i = 0;
-            drawelements(i);
-            }else{
-            }
-            drawelements(i);
-          console.log(i);
+          var template = document.getElementById('template');
+          for(var i =0; i <= LIST.length; i++){
+            console.log(LIST[i].Record_number);
+            // template要素の内容を複製
+            var clone = template.content.cloneNode(true);
+            clone.querySelector('.Record_number').textContent = LIST[i].Record_number;
+            /*const timestampToTime = (timestamp) => {
+            const date = new Date(timestamp*1000);
+            const yyyy = `${date.getFullYear()}`;
+            const MM = `0${date.getMonth() + 1}`.slice(-2); // getMonth()の返り値は0が基点
+            const dd = `0${date.getDate()}`.slice(-2);
+            const HH = `0${date.getHours()}`.slice(-2);
+            const mm = `0${date.getMinutes()}`.slice(-2);
+            const ss = `0${date.getSeconds()}`.slice(-2);
+            return `${yyyy}/${MM}/${dd}`;
+            //return `${yyyy}/${MM}/${dd}${HH}:${mm}:${ss}`;
           }
-
-        function modoru(){
-            i = i - 1;
-            if(i < 0){
-                i = 2;
-              drawelements(i);
-              }else{
-              }
-              drawelements(i);
-            console.log(i);
-            }
-
-
-
-
+          timestamp = LIST[i].Day.seconds;
+          console.log(timestampToTime(timestamp));*/
+            //clone.querySelector('.Day').textContent = timestampToTime(timestamp);
+            clone.querySelector('.Date').textContent = LIST[i].Date;
+            clone.querySelector('.Spot').textContent = LIST[i].Spot;
+            clone.querySelector('.Name').textContent = LIST[i].Name;
+            //clone.querySelector('.Category').textContent = LIST[i].Category;
+            clone.querySelector('.Type').textContent = LIST[i].Type;
+            clone.querySelector('.Registrant').textContent = LIST[i].Registrant;
+            const image = clone.querySelector('img');
+            image.src = LIST[i].Image;
+            document.getElementById('container').appendChild(clone);
+          }
+      });
+  }
 
 
     </script>
@@ -160,5 +141,3 @@
 
   </body>
 </html>
-
-
